@@ -1,5 +1,5 @@
 resource "aws_vpc" "cis3470-vpc" {
-  cidr_block = "172.16.0.0/16"
+  cidr_block = "34.70.0.0/16"
 
   tags = {
     Name = "CIS3470-vpc"
@@ -8,7 +8,7 @@ resource "aws_vpc" "cis3470-vpc" {
 
 resource "aws_subnet" "cis3470-subnet" {
   vpc_id            = aws_vpc.cis3470-vpc.id
-  cidr_block        = "172.16.10.0/24"
+  cidr_block        = "34.70.10.0/24"
   availability_zone = "us-west-1a"
 
   tags = {
