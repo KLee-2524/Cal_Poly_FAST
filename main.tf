@@ -87,6 +87,20 @@ resource "aws_instance" "winser22-vm" {
   }
 }
 
+resource "aws_instance" "winser22-vm-2" {
+  ami           = var.winser22_ami
+  instance_type = var.instance_type
+  subnet_id     = aws_subnet.kali-subnet.id
+  
+  vpc_security_group_ids = [aws_security_group.kali-sg.id]
+
+  key_name = "terraform-key-pair"
+
+  tags = {
+    Name = "WinSer22-VM-2"
+  }
+}
+
 resource "aws_instance" "kali-vm" {
   ami           = var.kali_ami
   instance_type = var.instance_type
