@@ -87,7 +87,7 @@ resource "aws_instance" "winser22-vm" {
   }
 }
 
-resource "aws_instance" "kali-vm" {
+resource "aws_instance" "sift-vm" {
   ami           = var.sift_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
