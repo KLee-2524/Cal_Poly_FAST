@@ -21,10 +21,10 @@ variable "vm_type" {
     default     = "KALI"
 }
 
-variable "kali_ami" {
+variable "sift_ami" {
     description = "AMI of the Kali VM to deploy"
     type        = string
-    default     = "ami-0f36db53af1422a10"
+    default     = "ami-0443a8664211c05f0"
 }
 
 variable "winser22_ami" {

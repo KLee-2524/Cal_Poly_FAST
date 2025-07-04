@@ -1,6 +1,6 @@
 # NETWORKING #
 resource "aws_vpc" "FAST-vpc" {
-  cidr_block           = "172.16.0.0/16"
+  cidr_block           = "192.168.0.0/28"
   enable_dns_hostnames = true
 
   tags = {
@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "FAST-gateway" {
 
 resource "aws_subnet" "FAST-subnet" {
   vpc_id                  = aws_vpc.FAST-vpc.id
-  cidr_block              = "172.16.0.0/24"
+  cidr_block              = "192.168.0.0/28"
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
@@ -62,7 +62,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
-    cidr_blocks = ["172.16.0.0/24"]
+    cidr_blocks = ["192.168.0.0/28"]
   }
 
   egress {
@@ -87,22 +87,8 @@ resource "aws_instance" "winser22-vm" {
   }
 }
 
-resource "aws_instance" "winser22-vm-2" {
-  ami           = var.winser22_ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet.id
-  
-  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
-
-  key_name = "terraform-key-pair"
-
-  tags = {
-    Name = "WinSer22-VM-2"
-  }
-}
-
 resource "aws_instance" "kali-vm" {
-  ami           = var.kali_ami
+  ami           = var.sift_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
   
