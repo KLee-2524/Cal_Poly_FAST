@@ -22,7 +22,7 @@ variable "vm_type" {
 }
 
 variable "sift_ami" {
-    description = "AMI of the Kali VM to deploy"
+    description = "AMI of the SIFT Workstation VM to deploy"
     type        = string
     default     = "ami-0443a8664211c05f0"
 }
