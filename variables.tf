@@ -9,6 +9,12 @@ variable "aws_region" {
     default     = "us-west-1"
 }
 
+variable "availability_zone" {
+    description = "AWS availability zone where resources will be deployed"
+    type        = string
+    default     = "us-west-1a" 
+}
+
 variable "vm_type" {
     description = "Kind of VM being deployed" 
     type        = string
@@ -25,4 +31,10 @@ variable "winser22_ami" {
     description = "AMI of the WinSer22 VM to deploy"
     type        = string
     default     = "ami-06fe666da1b90024e"
+}
+
+variable "project_name" {
+    description = "Name of project this deployment is supporting"
+    type        = string
+    default     = "FAST-workshop"
 }

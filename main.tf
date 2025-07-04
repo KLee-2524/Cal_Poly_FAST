@@ -1,5 +1,5 @@
 # NETWORKING #
-resource "aws_vpc" "kali-vpc" {
+resource "aws_vpc" "${project_name}-vpc" {
   cidr_block           = "172.16.0.0/16"
   enable_dns_hostnames = true
 
@@ -8,14 +8,14 @@ resource "aws_vpc" "kali-vpc" {
   }
 }
 
-resource "aws_internet_gateway" "kali-gateway" {
-  vpc_id = aws_vpc.kali-vpc.id
+resource "aws_internet_gateway" "${project_name}-gateway" {
+  vpc_id = aws_vpc.${project_name}-vpc.id
 }
 
-resource "aws_subnet" "kali-subnet" {
-  vpc_id                  = aws_vpc.kali-vpc.id
+resource "aws_subnet" "${project_name}-subnet" {
+  vpc_id                  = aws_vpc.${project_name}-vpc.id
   cidr_block              = "172.16.0.0/24"
-  availability_zone       = "us-west-1a"
+  availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
   tags = {
@@ -24,24 +24,24 @@ resource "aws_subnet" "kali-subnet" {
 }
 
 # ROUTING #
-resource "aws_route_table" "kali-route-table" {
-  vpc_id = aws_vpc.kali-vpc.id
+resource "aws_route_table" "${project_name}-route-table" {
+  vpc_id = aws_vpc.${project_name}-vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.kali-gateway.id
+    gateway_id = aws_internet_gateway.${project_name}-gateway.id
   }
 }
 
-resource "aws_route_table_association" "kali-subnet" {
-  subnet_id      = aws_subnet.kali-subnet.id
-  route_table_id = aws_route_table.kali-route-table.id
+resource "aws_route_table_association" "${project_name}-subnet" {
+  subnet_id      = aws_subnet.${project_name}-subnet.id
+  route_table_id = aws_route_table.${project_name}-route-table.id
 }
 
 # SECURITY GROUP #
-resource "aws_security_group" "kali-sg" {
+resource "aws_security_group" "${project_name}-sg" {
   name   = "${var.vm_type}-sg"
-  vpc_id = aws_vpc.kali-vpc.id
+  vpc_id = aws_vpc.${project_name}-vpc.id
 
   ingress {
     from_port  = 22
@@ -76,9 +76,9 @@ resource "aws_security_group" "kali-sg" {
 resource "aws_instance" "winser22-vm" {
   ami           = var.winser22_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.kali-subnet.id
+  subnet_id     = aws_subnet.${project_name}-subnet.id
   
-  vpc_security_group_ids = [aws_security_group.kali-sg.id]
+  vpc_security_group_ids = [aws_security_group.${project_name}-sg.id]
 
   key_name = "terraform-key-pair"
 
@@ -90,9 +90,9 @@ resource "aws_instance" "winser22-vm" {
 resource "aws_instance" "winser22-vm-2" {
   ami           = var.winser22_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.kali-subnet.id
+  subnet_id     = aws_subnet.${project_name}-subnet.id
   
-  vpc_security_group_ids = [aws_security_group.kali-sg.id]
+  vpc_security_group_ids = [aws_security_group.${project_name}-sg.id]
 
   key_name = "terraform-key-pair"
 
@@ -104,9 +104,9 @@ resource "aws_instance" "winser22-vm-2" {
 resource "aws_instance" "kali-vm" {
   ami           = var.kali_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.kali-subnet.id
+  subnet_id     = aws_subnet.${project_name}-subnet.id
   
-  vpc_security_group_ids = [aws_security_group.kali-sg.id]
+  vpc_security_group_ids = [aws_security_group.${project_name}-sg.id]
 
   key_name = "terraform-key-pair"
 
