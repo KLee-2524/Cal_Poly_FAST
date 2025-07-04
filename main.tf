@@ -1,5 +1,5 @@
 # NETWORKING #
-resource "aws_vpc" "${project_name}-vpc" {
+resource "aws_vpc" "FAST-vpc" {
   cidr_block           = "172.16.0.0/16"
   enable_dns_hostnames = true
 
@@ -8,12 +8,12 @@ resource "aws_vpc" "${project_name}-vpc" {
   }
 }
 
-resource "aws_internet_gateway" "${project_name}-gateway" {
-  vpc_id = aws_vpc.${project_name}-vpc.id
+resource "aws_internet_gateway" "FAST-gateway" {
+  vpc_id = aws_vpc.FAST-vpc.id
 }
 
-resource "aws_subnet" "${project_name}-subnet" {
-  vpc_id                  = aws_vpc.${project_name}-vpc.id
+resource "aws_subnet" "FAST-subnet" {
+  vpc_id                  = aws_vpc.FAST-vpc.id
   cidr_block              = "172.16.0.0/24"
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
@@ -24,24 +24,24 @@ resource "aws_subnet" "${project_name}-subnet" {
 }
 
 # ROUTING #
-resource "aws_route_table" "${project_name}-route-table" {
-  vpc_id = aws_vpc.${project_name}-vpc.id
+resource "aws_route_table" "FAST-route-table" {
+  vpc_id = aws_vpc.FAST-vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.${project_name}-gateway.id
+    gateway_id = aws_internet_gateway.FAST-gateway.id
   }
 }
 
-resource "aws_route_table_association" "${project_name}-subnet" {
-  subnet_id      = aws_subnet.${project_name}-subnet.id
-  route_table_id = aws_route_table.${project_name}-route-table.id
+resource "aws_route_table_association" "FAST-subnet" {
+  subnet_id      = aws_subnet.FAST-subnet.id
+  route_table_id = aws_route_table.FAST-route-table.id
 }
 
 # SECURITY GROUP #
-resource "aws_security_group" "${project_name}-sg" {
+resource "aws_security_group" "FAST-sg" {
   name   = "${var.vm_type}-sg"
-  vpc_id = aws_vpc.${project_name}-vpc.id
+  vpc_id = aws_vpc.FAST-vpc.id
 
   ingress {
     from_port  = 22
@@ -76,9 +76,9 @@ resource "aws_security_group" "${project_name}-sg" {
 resource "aws_instance" "winser22-vm" {
   ami           = var.winser22_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.${project_name}-subnet.id
+  subnet_id     = aws_subnet.FAST-subnet.id
   
-  vpc_security_group_ids = [aws_security_group.${project_name}-sg.id]
+  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
   key_name = "terraform-key-pair"
 
@@ -90,9 +90,9 @@ resource "aws_instance" "winser22-vm" {
 resource "aws_instance" "winser22-vm-2" {
   ami           = var.winser22_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.${project_name}-subnet.id
+  subnet_id     = aws_subnet.FAST-subnet.id
   
-  vpc_security_group_ids = [aws_security_group.${project_name}-sg.id]
+  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
   key_name = "terraform-key-pair"
 
@@ -104,9 +104,9 @@ resource "aws_instance" "winser22-vm-2" {
 resource "aws_instance" "kali-vm" {
   ami           = var.kali_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.${project_name}-subnet.id
+  subnet_id     = aws_subnet.FAST-subnet.id
   
-  vpc_security_group_ids = [aws_security_group.${project_name}-sg.id]
+  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
   key_name = "terraform-key-pair"
 

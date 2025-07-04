@@ -32,9 +32,3 @@ variable "winser22_ami" {
     type        = string
     default     = "ami-06fe666da1b90024e"
 }
-
-variable "project_name" {
-    description = "Name of project this deployment is supporting"
-    type        = string
-    default     = "FAST-workshop"
-}
