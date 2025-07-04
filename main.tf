@@ -73,8 +73,8 @@ resource "aws_security_group" "FAST-sg" {
   }
 }
 
-resource "aws_instance" "winser22-vm" {
-  ami           = var.winser22_ami
+resource "aws_instance" "winser-vm" {
+  ami           = var.winser_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
   
@@ -83,7 +83,7 @@ resource "aws_instance" "winser22-vm" {
   key_name = "terraform-key-pair"
 
   tags = {
-    Name = "WinSer22-VM"
+    Name = "WinSer-VM"
   }
 }
 

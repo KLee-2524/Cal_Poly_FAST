@@ -21,8 +21,8 @@ variable "sift_ami" {
     default     = "ami-0443a8664211c05f0"
 }
 
-variable "winser22_ami" {
-    description = "AMI of the WinSer22 VM to deploy"
+variable "winser_ami" {
+    description = "AMI of the WinSer VM to deploy"
     type        = string
-    default     = "ami-06fe666da1b90024e"
+    default     = "ami-09896dc1e97cae396"
 }
