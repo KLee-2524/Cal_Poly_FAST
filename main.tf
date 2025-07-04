@@ -73,19 +73,19 @@ resource "aws_security_group" "FAST-sg" {
   }
 }
 
-resource "aws_instance" "winser-vm" {
-  ami           = var.winser_ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet.id
-  
-  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
-
-  key_name = "terraform-key-pair"
-
-  tags = {
-    Name = "WinSer-VM"
-  }
-}
+#resource "aws_instance" "winser-vm" {
+#  ami           = var.winser_ami
+#  instance_type = var.instance_type
+#  subnet_id     = aws_subnet.FAST-subnet.id
+#  
+#  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
+#
+#  key_name = "terraform-key-pair"
+#
+#  tags = {
+#    Name = "WinSer-VM"
+#  }
+#}
 
 resource "aws_instance" "sift-vm" {
   ami           = var.sift_ami
