@@ -97,6 +97,6 @@ resource "aws_instance" "sift-vm" {
   key_name = "terraform-key-pair"
 
   tags = {
-    Name = "${var.vm_type}-VM"
+    Name = "SIFT-VM"
   }
 }
