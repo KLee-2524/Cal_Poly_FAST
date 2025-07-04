@@ -15,12 +15,6 @@ variable "availability_zone" {
     default     = "us-west-1a" 
 }
 
-variable "vm_type" {
-    description = "Kind of VM being deployed" 
-    type        = string
-    default     = "KALI"
-}
-
 variable "sift_ami" {
     description = "AMI of the SIFT Workstation VM to deploy"
     type        = string

@@ -4,7 +4,7 @@ resource "aws_vpc" "FAST-vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "${var.vm_type}-vpc"
+    Name = "FAST-vpc"
   }
 }
 
@@ -19,7 +19,7 @@ resource "aws_subnet" "FAST-subnet" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.vm_type}-subnet"
+    Name = "FAST-subnet"
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_route_table_association" "FAST-subnet" {
 
 # SECURITY GROUP #
 resource "aws_security_group" "FAST-sg" {
-  name   = "${var.vm_type}-sg"
+  name   = "FAST-sg"
   vpc_id = aws_vpc.FAST-vpc.id
 
   ingress {
