@@ -97,6 +97,6 @@ resource "aws_instance" "kali-vm" {
   key_name = "terraform-key-pair"
 
   tags = {
-    Name = "SIFT-VM"
+    Name = "KALI-VM"
   }
 }
