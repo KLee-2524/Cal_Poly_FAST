@@ -87,8 +87,8 @@ resource "aws_security_group" "FAST-sg" {
 #  }
 #}
 
-resource "aws_instance" "sift-vm" {
-  ami           = var.sift_ami
+resource "aws_instance" "kali-vm" {
+  ami           = var.kali_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
   

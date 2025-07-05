@@ -1,6 +1,6 @@
 variable "instance_type" {
   description = "Type of EC2 instance to provision"
-  default     = "t2.large"
+  default     = "t2.medium"
 }
 
 variable "aws_region" {
@@ -15,10 +15,10 @@ variable "availability_zone" {
     default     = "us-west-1a" 
 }
 
-variable "sift_ami" {
-    description = "AMI of the SIFT Workstation VM to deploy"
+variable "kali_ami" {
+    description = "AMI of the Kali Linux VM to deploy"
     type        = string
-    default     = "ami-0443a8664211c05f0"
+    default     = "ami-0f160e0c3bd9ed9f9"
 }
 
 variable "winser_ami" {
