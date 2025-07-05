@@ -96,6 +96,20 @@ resource "aws_instance" "sift-vm" {
 
   key_name = "terraform-key-pair"
 
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mkdir FAST_Documents",
+      "sudo mkdir TEST"
+    ]
+    
+    connection {
+      type        = "ssh"
+      user        = "sansforensics"
+      private_key = file(".\terraform-key-pair.pem")
+      host        = self.public_ip
+    }
+  }
+
   tags = {
     Name = "SIFT-VM"
   }
