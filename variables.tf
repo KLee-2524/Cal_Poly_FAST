@@ -18,11 +18,16 @@ variable "availability_zone" {
 variable "kali_ami" {
     description = "AMI of the Kali Linux VM to deploy"
     type        = string
-    default     = "ami-0f160e0c3bd9ed9f9"
+    default     = "ami-0f36db53af1422a10"
+
+    # Official Kali AMI: "ami-0f36db53af1422a10"
 }
 
 variable "winser_ami" {
     description = "AMI of the WinSer VM to deploy"
     type        = string
     default     = "ami-09896dc1e97cae396"
+
+    # WinSer22 = "ami-06fe666da1b90024e"
+    # WinSer16 = "ami-09896dc1e97cae396"
 }
