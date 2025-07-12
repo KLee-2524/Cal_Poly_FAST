@@ -2,7 +2,7 @@
 export DEBIAN_FRONTEND=noninteractive
 
 # Update the package list
-apt update -y
+sudo apt update -y
 
 # Install Kali Top 10 Tools
-apt install kali-tools-top10 -y
+sudo apt install kali-tools-top10 -y
