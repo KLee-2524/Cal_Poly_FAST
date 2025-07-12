@@ -43,6 +43,7 @@ resource "aws_security_group" "FAST-sg" {
   name   = "FAST-sg"
   vpc_id = aws_vpc.FAST-vpc.id
 
+  # SHH
   ingress {
     from_port  = 22
     to_port    = 22
@@ -50,6 +51,7 @@ resource "aws_security_group" "FAST-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # RDP
   ingress {
     from_port  = 3389
     to_port    = 3389
@@ -57,11 +59,27 @@ resource "aws_security_group" "FAST-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Either from 8 + to -1 or from -1 + to -1
+  # ICMP IPv4 Either from 8 + to -1 or from -1 + to -1
   ingress {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
+    cidr_blocks = ["192.168.0.0/28"]
+  }
+
+  # vsftpd 2.3.4
+  ingress {
+    from_port  = 21
+    to_port    = 21
+    protocol   = "tcp"
+    cidr_blocks = ["192.168.0.0/28"]
+  }
+
+  # Telnet
+  ingress {
+    from_port  = 23
+    to_port    = 23
+    protocol   = "tcp"
     cidr_blocks = ["192.168.0.0/28"]
   }
 
