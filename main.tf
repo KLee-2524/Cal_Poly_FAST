@@ -91,17 +91,17 @@ resource "aws_security_group" "FAST-sg" {
   }
 }
 
-resource "aws_instance" "winser-vm" {
-  ami           = var.winser_ami
+resource "aws_instance" "metasploitable2-vm" {
+  ami           = var.target_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  key_name = "terraform-key-pair"
+  key_name = "fast"
 
   tags = {
-    Name = "WinSer-VM"
+    Name = "Target-VM"
   }
 }
 
@@ -112,7 +112,7 @@ resource "aws_instance" "kali-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  key_name = "terraform-key-pair"
+  key_name = "fast"
 
   tags = {
     Name = "KALI-VM"
