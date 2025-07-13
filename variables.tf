@@ -35,7 +35,10 @@ variable "winser_ami" {
 variable "kali_setup_script" {
     description = "Set script to configure Kali Linux VM upon deployment"
     type        = string
-    default     = "#!/bin/bash export DEBIAN_FRONTEND=noninteractive
+    default     = <<EOT
+    #!/bin/bash
+    export DEBIAN_FRONTEND=noninteractive
     mkdir /home/kali/FAST
-    echo "FAST Directory Created" > /home/kali/FAST/test.txt"
+    echo "FAST directory created!" > /home/kali/FAST/mkdir_test.txt
+    EOT
 }
