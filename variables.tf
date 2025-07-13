@@ -33,7 +33,17 @@ variable "target_ami" {
     # Ubuntu 22.04 = "ami-043b59f1d11f8f189"
 }
 
-variable "mkdir_script" {
-  description = "User data script to initialize the EC2 instance"
-  type        = string
+variable "kali_setup_script" {
+    description = "Set script to configure Kali Linux VM upon deployment"
+    type        = string
+    default     = <<-EOT
+    #!/bin/bash
+    export DEBIAN_FRONTEND=noninteractive
+    mkdir /home/kali/FAST
+    echo "FAST directory created!" > /home/kali/FAST/test.txt
+    apt update -y
+    echo "apt update initiated" > /home/kali/update.txt
+    apt install -y kali-tools-top10
+    echo "kali-tools-top10 installation initiated" > /home/kali/kali-tools.txt
+    EOT
 }

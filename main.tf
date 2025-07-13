@@ -104,7 +104,7 @@ resource "aws_instance" "kali-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  user_data = var.mkdir_script
+  user_data = var.kali_setup_script
 
   key_name = "fast"
 
