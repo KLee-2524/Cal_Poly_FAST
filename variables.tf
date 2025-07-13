@@ -35,7 +35,7 @@ variable "winser_ami" {
 variable "kali_setup_script" {
     description = "Set script to configure Kali Linux VM upon deployment"
     type        = string
-    default     = <<EOT
+    default     = <<-EOT
     #!/bin/bash
     export DEBIAN_FRONTEND=noninteractive
     mkdir /home/kali/FAST
