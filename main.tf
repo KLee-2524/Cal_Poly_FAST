@@ -51,14 +51,6 @@ resource "aws_security_group" "FAST-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # RDP
-  ingress {
-    from_port  = 3389
-    to_port    = 3389
-    protocol   = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   # ICMP IPv4 Either from 8 + to -1 or from -1 + to -1
   ingress {
     from_port   = -1
@@ -98,7 +90,7 @@ resource "aws_instance" "metasploitable2-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  user_data = file("target_setup.sh")
+  user_data = file("mkdir.sh")
 
   key_name = "fast"
 
@@ -114,7 +106,7 @@ resource "aws_instance" "kali-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  user_data = file("kali_setup.sh")
+  user_data = file("mkdir.sh")
 
   key_name = "fast"
 
