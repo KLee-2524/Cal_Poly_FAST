@@ -31,3 +31,9 @@ variable "winser_ami" {
     # WinSer22 = "ami-06fe666da1b90024e"
     # WinSer16 = "ami-09896dc1e97cae396"
 }
+
+variable "kali_setup_script" {
+    description = "Set script to configure Kali Linux VM upon deployment"
+    type        = string
+    default     = "#!/bin/bash export DEBIAN_FRONTEND=noninteractive mkdir /home/kali/FAST echo "FAST Directory Created" > /home/kali/FAST/test.txt"
+}

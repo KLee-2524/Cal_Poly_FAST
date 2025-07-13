@@ -80,7 +80,7 @@ resource "aws_instance" "winser-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  key_name = "terraform-key-pair"
+  key_name = "fast"
 
   tags = {
     Name = "WinSer-VM"
@@ -91,10 +91,12 @@ resource "aws_instance" "kali-vm" {
   ami           = var.kali_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
+
+  user_data = var.kali_setup_script
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  key_name = "terraform-key-pair"
+  key_name = "fast"
 
   tags = {
     Name = "KALI-VM"
