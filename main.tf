@@ -90,8 +90,6 @@ resource "aws_instance" "metasploitable2-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  user_data = var.mkdir_script
-
   key_name = "fast"
 
   tags = {
@@ -106,7 +104,7 @@ resource "aws_instance" "kali-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  user_data = file("mkdir.sh")
+  user_data = var.mkdir_script
 
   key_name = "fast"
 
