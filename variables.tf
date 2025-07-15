@@ -59,14 +59,19 @@ variable "target_setup_script" {
     echo "FAST directory created!" > /home/ubuntu/FAST/setup_log.txt
 
     apt update -y
-    echo "apt update initiated" >> /home/ubuntu/setup_log.txt
+    echo "apt update initiated" >> /home/ubuntu/FAST/setup_log.txt
 
     apt install -y build-essential libssl-dev wget
-    echo "apt install wget initiated" >> /home/ubuntu/setup_log.txt
+    echo "apt install wget initiated" >> /home/ubuntu/FAST/setup_log.txt
 
     cd /tmp
     wget https://security.appspot.com/downloads/vsftpd-2.3.4.tar.gz
     tar xvf vsftpd-2.3.4.tar.gz
-    echo "wget vsftpd-2.3.4 initiated" >> /home/ubuntu/setup_log.txt
+    echo "wget vsftpd-2.3.4 initiated" >> /home/ubuntu/FAST/setup_log.txt
+
+    cd vsftpd-2.3.4
+    make LDFLAGS="-L/lib/x86_64-linux-gnu -lcrypt"
+    Sudo cp vsftpd /usr/sbin/vsftpd234
+    echo "Make, compile, and install initiated" >> /home/ubuntu/FAST/setup_log.txt
     EOT
 }
