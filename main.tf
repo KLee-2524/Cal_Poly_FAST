@@ -90,6 +90,8 @@ resource "aws_instance" "metasploitable2-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
+  user_data = var.target_setup_script
+
   key_name = "fast"
 
   tags = {
