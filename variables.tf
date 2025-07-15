@@ -71,7 +71,7 @@ variable "target_setup_script" {
 
     cd vsftpd-2.3.4
     make LDFLAGS="-L/lib/x86_64-linux-gnu -lcrypt"
-    Sudo cp vsftpd /usr/sbin/vsftpd234
+    sudo cp vsftpd /usr/sbin/vsftpd234
     echo "Make, compile, and install initiated" >> /home/ubuntu/FAST/setup_log.txt
 
     cat <<-EOF > /etc/vsftpd234.conf
@@ -81,6 +81,8 @@ variable "target_setup_script" {
     local_enable=YES
     listen_port=21
     anon_root=/home/ftp
+    background=YES
+    secure_chroot_dir=/usr/share/empty
     EOF
     sudo chmod 644 /etc/vsftpd234.conf
     sudo chown root:root /etc/vsftpd234.conf
