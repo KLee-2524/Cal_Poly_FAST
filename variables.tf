@@ -42,9 +42,9 @@ variable "kali_setup_script" {
     mkdir /home/kali/FAST
     echo "FAST directory created" > /home/kali/FAST/setup_log.txt
     apt update -y
-    echo "apt update initiated" >> /home/kali/setup_log.txt
+    echo "apt update initiated" >> /home/kali/FAST/setup_log.txt
     apt install -y kali-tools-top10
-    echo "kali-tools-top10 installation initiated" >> /home/kali/setup_log.txt
+    echo "kali-tools-top10 installation initiated" >> /home/kali/FAST/setup_log.txt
     EOT
 }
 
@@ -73,5 +73,15 @@ variable "target_setup_script" {
     make LDFLAGS="-L/lib/x86_64-linux-gnu -lcrypt"
     Sudo cp vsftpd /usr/sbin/vsftpd234
     echo "Make, compile, and install initiated" >> /home/ubuntu/FAST/setup_log.txt
+
+    cat <<-EOF > /etc/vsftpd234.conf
+    listen=YES
+    anonymous_enable=YES
+    write_enable=YES
+    local_enable=YES
+    listen_port=21
+    EOF
+    echo "vsftpd234.conf file created" >> /home/ubuntu/FAST/setup_log.txt
+
     EOT
 }
