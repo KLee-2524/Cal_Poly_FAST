@@ -122,7 +122,7 @@ variable "github_target_setup_script" {
     apt-get install libpam0g-dev
     echo "Build and dev tools installation initiated" >> /home/ubuntu/FAST/setup_log.txt
 
-    git https://github.com/DoctorKisow/vsftpd-2.3.4.git
+    git clone https://github.com/DoctorKisow/vsftpd-2.3.4.git
     cd vsftpd-2.3.4
     echo "GitHub repository cloned" >> /home/ubuntu/FAST/setup_log.txt
 
