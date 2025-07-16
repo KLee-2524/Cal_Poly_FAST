@@ -114,3 +114,19 @@ resource "aws_instance" "kali-vm" {
     Name = "KALI-VM"
   }
 }
+
+resource "aws_instance" "githubvsftpd-vm" {
+  ami           = var.target_ami
+  instance_type = var.instance_type
+  subnet_id     = aws_subnet.FAST-subnet.id
+  
+  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
+
+  user_data = var.github_target_setup_script
+
+  key_name = "fast"
+
+  tags = {
+    Name = "Target-2-VM"
+  }
+}

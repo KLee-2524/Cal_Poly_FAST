@@ -104,3 +104,29 @@ variable "target_setup_script" {
 
     EOT
 }
+
+variable "github_target_setup_script" {
+    description = "Set script to configure Target VM upon deployment"
+    type        = string
+    default     = <<-EOT
+    #!/bin/bash
+    export DEBIAN_FRONTEND=noninteractive
+
+    mkdir /home/ubuntu/FAST
+    echo "FAST directory created!" > /home/ubuntu/FAST/setup_log.txt
+
+    apt update -y
+    echo "apt update initiated" >> /home/ubuntu/FAST/setup_log.txt
+
+    apt-get install build-essential
+    apt-get install libpam0g-dev
+    echo "Build and dev tools installation initiated" >> /home/ubuntu/FAST/setup_log.txt
+
+    git https://github.com/DoctorKisow/vsftpd-2.3.4.git
+    cd vsftpd-2.3.4
+    echo "GitHub repository cloned" >> /home/ubuntu/FAST/setup_log.txt
+
+    chmod +x vsf_findlibs.sh
+    echo "findlibs file permissions changed" >> /home/ubuntu/FAST/setup_log.txt
+    EOT
+}
