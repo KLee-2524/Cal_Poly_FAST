@@ -46,3 +46,13 @@ variable "kali_setup_script" {
 # Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-In' -Enabled True
 # Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-Out' -Enabled True
 # TODO: Find a way to pass these PowerShell commands into an administrator PowerShell Terminal from Terraform
+variable "winser22_setup_script" {
+    description = "Set script to configure Kali Linux VM upon deployment"
+    type        = string
+    default     = <<-EOT
+    <powershell>
+    Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-In' -Enabled True
+    Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-Out' -Enabled True
+    </powershell>
+    EOT
+}

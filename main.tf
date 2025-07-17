@@ -80,6 +80,8 @@ resource "aws_instance" "winser22-vm" {
   
   vpc_security_group_ids = [aws_security_group.kali-sg.id]
 
+  user_data = var.winser22_setup_script
+
   key_name = "terraform-key-pair"
 
   tags = {
