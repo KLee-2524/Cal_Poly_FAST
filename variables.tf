@@ -26,3 +26,18 @@ variable "winser22_ami" {
     type        = string
     default     = "ami-06fe666da1b90024e"
 }
+
+variable "kali_setup_script" {
+    description = "Set script to configure Kali Linux VM upon deployment"
+    type        = string
+    default     = <<-EOT
+    #!/bin/bash
+    export DEBIAN_FRONTEND=noninteractive
+    mkdir /home/kali/FAST
+    echo "FAST directory created" > /home/kali/FAST/setup_log.txt
+    apt update -y
+    echo "apt update initiated" >> /home/kali/FAST/setup_log.txt
+    apt install -y kali-tools-top10
+    echo "kali-tools-top10 installation initiated" >> /home/kali/FAST/setup_log.txt
+    EOT
+}
