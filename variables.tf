@@ -42,10 +42,6 @@ variable "kali_setup_script" {
     EOT
 }
 
-# Windows Setup Script (Enable ICMPv4-In and ICMPv4-Out on Private Subnets)
-# Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-In' -Enabled True
-# Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-Out' -Enabled True
-# TODO: Find a way to pass these PowerShell commands into an administrator PowerShell Terminal from Terraform
 variable "winser22_setup_script" {
     description = "Set script to configure Kali Linux VM upon deployment"
     type        = string
