@@ -41,3 +41,8 @@ variable "kali_setup_script" {
     echo "kali-tools-top10 installation initiated" >> /home/kali/FAST/setup_log.txt
     EOT
 }
+
+# Windows Setup Script (Enable ICMPv4-In and ICMPv4-Out on Private Subnets)
+# Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-In' -Enabled True
+# Set-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-Out' -Enabled True
+# TODO: Find a way to pass these PowerShell commands into an administrator PowerShell Terminal from Terraform
