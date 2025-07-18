@@ -35,23 +35,10 @@ variable "kali_setup_script" {
     export DEBIAN_FRONTEND=noninteractive
     mkdir /home/kali/FAST
     echo "FAST directory created" > /home/kali/FAST/setup_log.txt
-
-    echo "Updating and upgrading Kali (this will take a while)" >> /home/kali/FAST/setup_log.txt
-    apt-get update
-    apt-get full-upgrade -y
-
-    echo "Installing Xfce4 & xrdp (this will take a while as well)" >> /home/kali/FAST/setup_log.txt
-    apt-get install -y kali-desktop-xfce xorg xrdp xorgxrdp
-
-    echo "Configuring xrdp to listen to port 3390 (but not starting the service)" >> /home/kali/FAST/setup_log.txt
-    sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
-
-    echo "GUI setup script executed" >> /home/kali/FAST/setup_log.txt
+    apt update -y
+    echo "apt update initiated" > /home/kali/FAST/setup_log.txt
     apt install -y kali-tools-top10
     echo "kali-tools-top10 installation initiated" >> /home/kali/FAST/setup_log.txt
-    sudo systemctl enable xrdp --now
-    ssh -N -L 3390:127.0.0.1:3390
-    echo "GUI service started" >> /home/kali/FAST/setup_log.txt
     EOT
 }
 
