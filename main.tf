@@ -1,6 +1,6 @@
 # NETWORKING #
 resource "aws_vpc" "kali-vpc" {
-  cidr_block           = "172.16.0.0/16"
+  cidr_block           = "172.16.0.0/24"
   enable_dns_hostnames = true
 
   tags = {
