@@ -50,7 +50,7 @@ variable "kali_setup_script" {
     apt install -y kali-tools-top10
     echo "kali-tools-top10 installation initiated" >> /home/kali/FAST/setup_log.txt
     sudo systemctl enable xrdp --now
-    ssh -N -L 3389:172.16.0.1:3389
+    ssh -N -L 3390:127.0.0.1:3390
     echo "GUI service started" >> /home/kali/FAST/setup_log.txt
     EOT
 }
