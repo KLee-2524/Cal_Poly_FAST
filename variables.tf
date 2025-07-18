@@ -35,10 +35,17 @@ variable "kali_setup_script" {
     export DEBIAN_FRONTEND=noninteractive
     mkdir /home/kali/FAST
     echo "FAST directory created" > /home/kali/FAST/setup_log.txt
-    apt update -y
-    echo "apt update initiated" >> /home/kali/FAST/setup_log.txt
+
+    wget https://gitlab.com/kalilinux/recipes/kali-scripts/-/raw/main/xfce4.sh
+    chmod +x xfce4.sh
+    sudo ./xfce4.sh
+    echo "GUI setup script executed" >> /home/kali/FAST/setup_log.txt
+
     apt install -y kali-tools-top10
     echo "kali-tools-top10 installation initiated" >> /home/kali/FAST/setup_log.txt
+
+    sudo systemctl enable xrdp --now
+    echo "GUI service started" >> /home/kali/FAST/setup_log.txt
     EOT
 }
 
