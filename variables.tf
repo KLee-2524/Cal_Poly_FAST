@@ -58,6 +58,9 @@ variable "kali_setup_script" {
 
     ssh -N -L 3390:127.0.0.1:3390
     echo "SSH forwarding enabled" >> /home/kali/FAST/setup_log.txt
+
+    echo "Welcome to the basic-terraform-lab Kali Linux VM!" > /home/kali/Desktop/README.txt
+    echo "README file created" >> /home/kali/FAST/setup_log.txt
     EOT
 }
 
