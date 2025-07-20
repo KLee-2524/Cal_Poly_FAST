@@ -42,16 +42,22 @@ variable "kali_setup_script" {
 
     sudo apt-get update -y
     sudo apt-get full-upgrade -y
+    echo "apt-get udpate & upgrade initiated" >> /home/kali/FAST/setup_log.txt
 
     sudo apt-get install -y kali-desktop-xfce xorg xrdp xorgxrdp
+    echo "xfce installation initiated" >> /home/kali/FAST/setup_log.txt
 
     sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
+    echo "Port 3390 set as SSH forwarding port" >> /home/kali/FAST/setup_log.txt
 
     sudo systemctl enable xrdp --now
+    echo "xrdp enabled" >> /home/kali/FAST/setup_log.txt
 
     sudo echo kali:kali | sudo chpasswd
+    echo "User password changed" >> /home/kali/FAST/setup_log.txt
 
     ssh -N -L 3390:127.0.0.1:3390
+    echo "SSH forwarding enabled" >> /home/kali/FAST/setup_log.txt
     EOT
 }
 
