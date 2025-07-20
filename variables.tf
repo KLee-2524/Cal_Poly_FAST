@@ -44,7 +44,7 @@ variable "kali_setup_script" {
     sudo apt-get full-upgrade -y
     echo "apt-get udpate & upgrade initiated" >> /home/kali/FAST/setup_log.txt
 
-    sudo apt-get install -y kali-desktop-xfce xorg xrdp xorgxrdp
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y kali-desktop-xfce xorg xrdp xorgxrdp
     echo "xfce installation initiated" >> /home/kali/FAST/setup_log.txt
 
     sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
