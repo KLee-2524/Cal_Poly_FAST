@@ -39,6 +39,19 @@ variable "kali_setup_script" {
     echo "apt update initiated" > /home/kali/FAST/setup_log.txt
     apt install -y kali-tools-top10
     echo "kali-tools-top10 installation initiated" >> /home/kali/FAST/setup_log.txt
+
+    sudo apt-get update -y
+    sudo apt-get full-upgrade -y
+
+    sudo apt-get install -y kali-desktop-xfce xorg xrdp xorgxrdp
+
+    sudo sed -i 's/port=3389/port=3390/g' /etc/xrdp/xrdp.ini
+
+    sudo systemctl enable xrdp --now
+
+    sudo echo kali:kali | sudo chpasswd
+
+    ssh -N -L 3390:127.0.0.1:3390
     EOT
 }
 
