@@ -1,6 +1,6 @@
 # NETWORKING #
 resource "aws_vpc" "kali-vpc" {
-  cidr_block           = "172.16.0.0/16"
+  cidr_block           = "172.16.0.0/24"
   enable_dns_hostnames = true
 
   tags = {
@@ -80,6 +80,8 @@ resource "aws_instance" "winser22-vm" {
   
   vpc_security_group_ids = [aws_security_group.kali-sg.id]
 
+  user_data = var.winser22_setup_script
+
   key_name = "terraform-key-pair"
 
   tags = {
@@ -93,6 +95,8 @@ resource "aws_instance" "kali-vm" {
   subnet_id     = aws_subnet.kali-subnet.id
   
   vpc_security_group_ids = [aws_security_group.kali-sg.id]
+
+  user_data = var.kali_setup_script
 
   key_name = "terraform-key-pair"
 
