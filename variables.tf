@@ -152,6 +152,7 @@ variable "github_target_setup_script" {
     echo "vsftpd 2.3.4 service started" >> /home/ubuntu/FAST/setup_log.txt
 
     sudo ufw allow 21/tcp
+    sudo ufw allow 22/tcp
     sudo ufw allow 6200/tcp
     sudo ufw enable
     echo "Firewall rules modified to allow traffic on ports 21 and 6200" >> /home/ubuntu/FAST/setup_log.txt
