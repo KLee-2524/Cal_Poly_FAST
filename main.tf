@@ -100,7 +100,7 @@ resource "aws_instance" "kali-vm" {
 
   user_data = var.kali_setup_script
 
-  key_name = "fast"
+  key_name = "terraform-key-pair"
 
   tags = {
     Name = "KALI-VM"
@@ -116,7 +116,7 @@ resource "aws_instance" "githubvsftpd-vm" {
 
   user_data = var.github_target_setup_script
 
-  key_name = "fast"
+  key_name = "terraform-key-pair"
 
   tags = {
     Name = "Target-2-VM"
