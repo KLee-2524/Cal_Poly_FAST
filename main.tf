@@ -91,22 +91,6 @@ resource "aws_security_group" "FAST-sg" {
   }
 }
 
-resource "aws_instance" "metasploitable2-vm" {
-  ami           = var.target_ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet.id
-  
-  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
-
-  user_data = var.target_setup_script
-
-  key_name = "fast"
-
-  tags = {
-    Name = "Target-VM"
-  }
-}
-
 resource "aws_instance" "kali-vm" {
   ami           = var.kali_ami
   instance_type = var.instance_type
