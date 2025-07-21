@@ -122,8 +122,8 @@ variable "github_target_setup_script" {
     export DEBIAN_FRONTEND=noninteractive apt-get install libpam0g-dev
     echo "Build and dev tools installation initiated" >> /home/ubuntu/FAST/setup_log.txt
 
-    mkdir vsftpd234_lab
-    cd vsftpd234_lab
+    mkdir /home/ubuntu/vsftpd234_lab
+    cd /home/ubuntu/vsftpd234_lab
     git clone https://github.com/KLee-2524/vsftpd-2.3.4-lab.git
     cd vsftpd-2.3.4
     echo "GitHub repository cloned" >> /home/ubuntu/FAST/setup_log.txt
