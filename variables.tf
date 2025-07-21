@@ -122,11 +122,38 @@ variable "github_target_setup_script" {
     apt-get install libpam0g-dev
     echo "Build and dev tools installation initiated" >> /home/ubuntu/FAST/setup_log.txt
 
-    git clone https://github.com/DoctorKisow/vsftpd-2.3.4.git
+    mkdir vsftpd234_lab
+    cd vsftpd234_lab
+    git clone https://github.com/KLee-2524/vsftpd-2.3.4-lab.git
     cd vsftpd-2.3.4
     echo "GitHub repository cloned" >> /home/ubuntu/FAST/setup_log.txt
 
     chmod +x vsf_findlibs.sh
     echo "findlibs file permissions changed" >> /home/ubuntu/FAST/setup_log.txt
+
+    sudo install -v -d -m 0755 /var/ftp/empty
+    sudo install -v -d -m 0755 /home/ftp
+    sudo groupadd -g 47 vsftpd
+    sudo groupadd -g 48 ftp
+    sudo useradd -c "vsftpd User"  -d /dev/null -g vsftpd -s /bin/false -u 47 vsftpd
+    sudo useradd -c anonymous_user -d /home/ftp -g ftp    -s /bin/false -u 48 ftp
+    echo "Vulnerable users, groups, and directories added and configured" >> /home/ubuntu/FAST/setup_log.txt
+
+    make
+    echo "vsftpd compiled" >> /home/ubuntu/FAST/setup_log.txt
+
+    sudo install -v -m 755 vsftpd        /usr/sbin/vsftpd
+    sudo install -v -m 644 vsftpd.8      /usr/share/man/man8
+    sudo install -v -m 644 vsftpd.conf.5 /usr/share/man/man5
+    sudo install -v -m 644 vsftpd.conf   /etc
+    echo "vsftpd installed and configured" >> /home/ubuntu/FAST/setup_log.txt
+
+    sudo vsftpd &
+    echo "vsftpd 2.3.4 service started" >> /home/ubuntu/FAST/setup_log.txt
+
+    sudo ufw allow 21/tcp
+    sudo ufw allow 6200/tcp
+    sudo ufw enable
+    echo "Firewall rules modified to allow traffic on ports 21 and 6200" >> /home/ubuntu/FAST/setup_log.txt
     EOT
 }

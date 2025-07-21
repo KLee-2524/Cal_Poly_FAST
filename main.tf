@@ -67,6 +67,14 @@ resource "aws_security_group" "FAST-sg" {
     cidr_blocks = ["192.168.0.0/28"]
   }
 
+  # vsftpd 2.3.4 backdoor spawns on port 6200
+  ingress {
+    from_port  = 6200
+    to_port    = 6200
+    protocol   = "tcp"
+    cidr_blocks = ["192.168.0.0/28"]
+  }
+
   # Telnet
   ingress {
     from_port  = 23
