@@ -118,8 +118,8 @@ variable "github_target_setup_script" {
     apt update -y
     echo "apt update initiated" >> /home/ubuntu/FAST/setup_log.txt
 
-    apt-get install build-essential
-    apt-get install libpam0g-dev
+    export DEBIAN_FRONTEND=noninteractive apt-get install build-essential
+    export DEBIAN_FRONTEND=noninteractive apt-get install libpam0g-dev
     echo "Build and dev tools installation initiated" >> /home/ubuntu/FAST/setup_log.txt
 
     mkdir vsftpd234_lab
