@@ -27,11 +27,6 @@ variable "winser22_ami" {
     default     = "ami-06fe666da1b90024e"
 }
 
-variable "kali_password" {
-    description = "Password for Kali VM"
-    type        = string
-}
-
 variable "kali_setup_script" {
     description = "Set script to configure Kali Linux VM upon deployment"
     type        = string
@@ -58,7 +53,7 @@ variable "kali_setup_script" {
     sudo systemctl enable xrdp --now
     echo "xrdp enabled" >> /home/kali/FAST/setup_log.txt
 
-    sudo echo kali:${var.kali_password} | sudo chpasswd
+    sudo echo kali:kali | sudo chpasswd
     echo "User password changed" >> /home/kali/FAST/setup_log.txt
 
     ssh -N -L 3390:127.0.0.1:3390
