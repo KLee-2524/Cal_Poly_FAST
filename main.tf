@@ -107,18 +107,18 @@ resource "aws_instance" "kali-vm" {
   }
 }
 
-resource "aws_instance" "githubvsftpd-vm" {
+resource "aws_instance" "vsftpd234-vm" {
   ami           = var.target_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  user_data = var.github_target_setup_script
+  user_data = var.target_setup_script
 
   key_name = "terraform-key-pair"
 
   tags = {
-    Name = "Target-2-VM"
+    Name = "Target-VM"
   }
 }

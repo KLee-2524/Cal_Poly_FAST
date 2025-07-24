@@ -61,63 +61,6 @@ variable "target_setup_script" {
     apt update -y
     echo "apt update initiated" >> /home/ubuntu/FAST/setup_log.txt
 
-    apt install -y build-essential libssl-dev wget
-    echo "apt install wget initiated" >> /home/ubuntu/FAST/setup_log.txt
-
-    cd /tmp
-    wget https://security.appspot.com/downloads/vsftpd-2.3.4.tar.gz
-    tar xvf vsftpd-2.3.4.tar.gz
-    echo "wget vsftpd-2.3.4 initiated" >> /home/ubuntu/FAST/setup_log.txt
-
-    cd vsftpd-2.3.4
-    make LDFLAGS="-L/lib/x86_64-linux-gnu -lcrypt"
-    sudo cp vsftpd /usr/sbin/vsftpd234
-    echo "Make, compile, and install initiated" >> /home/ubuntu/FAST/setup_log.txt
-
-    cat <<-EOF > /etc/vsftpd234.conf
-    listen=YES
-    anonymous_enable=YES
-    write_enable=YES
-    local_enable=YES
-    listen_port=21
-    anon_root=/home/ftp
-    background=YES
-    secure_chroot_dir=/usr/share/empty
-    EOF
-    sudo chmod 644 /etc/vsftpd234.conf
-    sudo chown root:root /etc/vsftpd234.conf
-    echo "vsftpd234.conf file created" >> /home/ubuntu/FAST/setup_log.txt
-
-    sudo useradd -m ftpuser
-    echo "ftpuser:ftpuser" | sudo chpasswd
-    echo "ftpuser created and password modified" >> /home/ubuntu/FAST/setup_log.txt
-
-    sudo mkdir -p /usr/share/empty
-    sudo chown root:root /usr/share/empty
-    sudo chmod 555 /usr/share/empty
-    echo "/usr/share/empty directory created to satisfy vsftpd's secure_chroot_dir requirement" >> /home/ubuntu/FAST/setup_log.txt
-
-    sudo useradd -m ftp -s /usr/sbin/nologin
-    sudo mkdir -p /home/ftp
-    sudo chmod 755 /home/ftp
-    echo "Default anonymous user ftp created" >> /home/ubuntu/FAST/setup_log.txt
-
-    EOT
-}
-
-variable "github_target_setup_script" {
-    description = "Set script to configure Target VM upon deployment"
-    type        = string
-    default     = <<-EOT
-    #!/bin/bash
-    export DEBIAN_FRONTEND=noninteractive
-
-    mkdir /home/ubuntu/FAST
-    echo "FAST directory created!" > /home/ubuntu/FAST/setup_log.txt
-
-    apt update -y
-    echo "apt update initiated" >> /home/ubuntu/FAST/setup_log.txt
-
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential 
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libpam0g-dev 
     echo "Build and dev tools installation initiated" >> /home/ubuntu/FAST/setup_log.txt
