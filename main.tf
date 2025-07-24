@@ -45,9 +45,9 @@ resource "aws_security_group" "FAST-sg" {
 
   # SHH
   ingress {
-    from_port  = 22
-    to_port    = 22
-    protocol   = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -61,32 +61,32 @@ resource "aws_security_group" "FAST-sg" {
 
   # vsftpd 2.3.4
   ingress {
-    from_port  = 21
-    to_port    = 21
-    protocol   = "tcp"
+    from_port   = 21
+    to_port     = 21
+    protocol    = "tcp"
     cidr_blocks = ["192.168.0.0/28"]
   }
 
   # vsftpd 2.3.4 backdoor spawns on port 6200
   ingress {
-    from_port  = 6200
-    to_port    = 6200
-    protocol   = "tcp"
+    from_port   = 6200
+    to_port     = 6200
+    protocol    = "tcp"
     cidr_blocks = ["192.168.0.0/28"]
   }
 
   # Telnet
   ingress {
-    from_port  = 23
-    to_port    = 23
-    protocol   = "tcp"
+    from_port   = 23
+    to_port     = 23
+    protocol    = "tcp"
     cidr_blocks = ["192.168.0.0/28"]
   }
 
   egress {
-    from_port  = 0
-    to_port    = 0
-    protocol   = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
