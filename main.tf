@@ -114,7 +114,7 @@ resource "aws_instance" "githubvsftpd-vm" {
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
-  user_data = var.github_target_setup_script
+  #user_data = var.github_target_setup_script
 
   key_name = "terraform-key-pair"
 

@@ -128,7 +128,7 @@ variable "github_target_setup_script" {
     cd vsftpd-2.3.4
     echo "GitHub repository cloned" >> /home/ubuntu/FAST/setup_log.txt
 
-    chmod +x vsf_findlibs.sh
+    sudo chmod +x /home/ubuntu/vsftpd234_lab/vsftpd-2.3.4-lab/vsf_findlibs.sh
     echo "findlibs file permissions changed" >> /home/ubuntu/FAST/setup_log.txt
 
     sudo install -v -d -m 0755 /var/ftp/empty
