@@ -125,7 +125,7 @@ variable "github_target_setup_script" {
     mkdir /home/ubuntu/vsftpd234_lab
     cd /home/ubuntu/vsftpd234_lab
     git clone https://github.com/KLee-2524/vsftpd-2.3.4-lab.git
-    cd vsftpd-2.3.4
+    cd vsftpd-2.3.4-lab
     echo "GitHub repository cloned" >> /home/ubuntu/FAST/setup_log.txt
 
     sudo chmod +x /home/ubuntu/vsftpd234_lab/vsftpd-2.3.4-lab/vsf_findlibs.sh
@@ -152,9 +152,8 @@ variable "github_target_setup_script" {
     echo "vsftpd 2.3.4 service started" >> /home/ubuntu/FAST/setup_log.txt
 
     sudo ufw allow 21/tcp
-    sudo ufw allow 22/tcp
     sudo ufw allow 6200/tcp
-    sudo ufw enable
+    sudo ufw enable -y
     echo "Firewall rules modified to allow traffic on ports 21 and 6200" >> /home/ubuntu/FAST/setup_log.txt
     EOT
 }
