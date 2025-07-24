@@ -155,5 +155,7 @@ variable "github_target_setup_script" {
     sudo ufw allow 6200/tcp
     sudo ufw enable -y
     echo "Firewall rules modified to allow traffic on ports 21 and 6200" >> /home/ubuntu/FAST/setup_log.txt
+
+    echo "NEVER GONNA GIVE YOU UP" > /home/ubuntu/FAST/flag.txt
     EOT
 }
