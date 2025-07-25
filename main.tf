@@ -95,6 +95,20 @@ resource "aws_security_group" "KALI-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port  = 3389
+    to_port    = 3389
+    protocol   = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port  = 3390
+    to_port    = 3390
+    protocol   = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # ICMP IPv4 Either from 8 + to -1 or from -1 + to -1
   ingress {
     from_port   = -1
