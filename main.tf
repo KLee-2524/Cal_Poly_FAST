@@ -75,11 +75,31 @@ resource "aws_security_group" "FAST-sg" {
     cidr_blocks = ["192.168.0.0/28"]
   }
 
-  # Telnet
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "KALI-sg" {
+  name   = "KALI-sg"
+  vpc_id = aws_vpc.FAST-vpc.id
+
+  # SHH
   ingress {
-    from_port   = 23
-    to_port     = 23
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # ICMP IPv4 Either from 8 + to -1 or from -1 + to -1
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
     cidr_blocks = ["192.168.0.0/28"]
   }
 
@@ -96,7 +116,7 @@ resource "aws_instance" "kali-vm" {
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
   
-  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
+  vpc_security_group_ids = [aws_security_group.KALI-sg.id]
 
   user_data = var.kali_setup_script
 
