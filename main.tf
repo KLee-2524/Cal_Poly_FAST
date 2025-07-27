@@ -109,7 +109,7 @@ resource "aws_instance" "kali-vm" {
   key_name = "terraform-key-pair"
 
   tags = {
-    Name = "KALI-VM"
+    Name = "KALI-VM-${var.attendee_number}"
   }
 }
 
@@ -117,6 +117,8 @@ resource "aws_instance" "vsftpd234-vm" {
   ami           = var.target_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
+
+  private_ip = "192.168.${var.attendee_number}.3"
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
@@ -125,6 +127,6 @@ resource "aws_instance" "vsftpd234-vm" {
   key_name = "terraform-key-pair"
 
   tags = {
-    Name = "Target-VM"
+    Name = "Target-VM-${var.attendee_number}"
   }
 }
