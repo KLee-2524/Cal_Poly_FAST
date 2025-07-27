@@ -1,3 +1,9 @@
+variable "attendee_number" {
+    description = "Used to create a separate subnet for each individual attendee"
+    type        = string
+    default     = "1"
+}
+
 variable "instance_type" {
   description = "Type of EC2 instance to provision"
   default     = "t2.medium"
@@ -31,12 +37,6 @@ variable "target_ami" {
     # WinSer22 = "ami-06fe666da1b90024e"
     # WinSer16 = "ami-09896dc1e97cae396"
     # Ubuntu 22.04 = "ami-043b59f1d11f8f189"
-}
-
-variable "attendee_number" {
-    description = "Used to create a separate subnet for each individual attendee"
-    type        = string
-    default     = "1"
 }
 
 variable "kali_setup_script" {
