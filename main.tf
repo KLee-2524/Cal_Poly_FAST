@@ -70,7 +70,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
-    cidr_blocks = [${aws_subnet.FAST-subnet.cidr_block}]
+    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
   }
 
   # vsftpd 2.3.4
@@ -78,7 +78,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = 21
     to_port     = 21
     protocol    = "tcp"
-    cidr_blocks = [${aws_subnet.FAST-subnet.cidr_block}]
+    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
   }
 
   # vsftpd 2.3.4 backdoor spawns on port 6200
@@ -86,7 +86,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = 6200
     to_port     = 6200
     protocol    = "tcp"
-    cidr_blocks = [${aws_subnet.FAST-subnet.cidr_block}]
+    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
   }
 
   egress {
