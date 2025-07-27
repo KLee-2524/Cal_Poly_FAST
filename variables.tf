@@ -33,6 +33,12 @@ variable "target_ami" {
     # Ubuntu 22.04 = "ami-043b59f1d11f8f189"
 }
 
+variable "attendee_number" {
+    description = "Used to create a separate subnet for each individual attendee"
+    type        = string
+    default     = "1"
+}
+
 variable "kali_setup_script" {
     description = "Set script to configure Kali Linux VM upon deployment"
     type        = string
