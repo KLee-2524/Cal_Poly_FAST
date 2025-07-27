@@ -118,7 +118,7 @@ resource "aws_instance" "vsftpd234-vm" {
   instance_type = var.instance_type
   subnet_id     = aws_subnet.FAST-subnet.id
 
-  private_ip = "192.168.${var.attendee_number}.3"
+  private_ip = "192.168.${var.attendee_number}.10"
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
