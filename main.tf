@@ -1,6 +1,6 @@
 # NETWORKING #
 resource "aws_vpc" "FAST-vpc" {
-  cidr_block           = "192.168.0.0/28"
+  cidr_block           = "192.168.0.0/16"
   enable_dns_hostnames = true
 
   tags = {
@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "FAST-gateway" {
 
 resource "aws_subnet" "FAST-subnet" {
   vpc_id                  = aws_vpc.FAST-vpc.id
-  cidr_block              = "192.168.0.0/28"
+  cidr_block              = "192.168.0.0/30"
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
@@ -70,7 +70,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
-    cidr_blocks = ["192.168.0.0/28"]
+    cidr_blocks = [${aws_subnet.FAST-subnet.cidr_block}]
   }
 
   # vsftpd 2.3.4
@@ -78,7 +78,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = 21
     to_port     = 21
     protocol    = "tcp"
-    cidr_blocks = ["192.168.0.0/28"]
+    cidr_blocks = [${aws_subnet.FAST-subnet.cidr_block}]
   }
 
   # vsftpd 2.3.4 backdoor spawns on port 6200
@@ -86,7 +86,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = 6200
     to_port     = 6200
     protocol    = "tcp"
-    cidr_blocks = ["192.168.0.0/28"]
+    cidr_blocks = [${aws_subnet.FAST-subnet.cidr_block}]
   }
 
   egress {
