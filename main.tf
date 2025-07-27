@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "FAST-gateway" {
 
 resource "aws_subnet" "FAST-subnet" {
   vpc_id                  = aws_vpc.FAST-vpc.id
-  cidr_block              = "192.168.${attendee_number}.0/28"
+  cidr_block              = "192.168.${var.attendee_number}.0/28"
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
