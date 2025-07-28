@@ -9,12 +9,6 @@ variable "instance_type" {
   default     = "t2.medium"
 }
 
-variable "aws_region" {
-    description = "AWS region where resources will be deployed" 
-    type        = string
-    default     = "us-west-1"
-}
-
 variable "availability_zone" {
     description = "AWS availability zone where resources will be deployed"
     type        = string
