@@ -35,7 +35,7 @@ resource "aws_subnet" "FAST-subnet" {
 
 resource "aws_route_table_association" "FAST-subnet" {
   subnet_id      = aws_subnet.FAST-subnet.id
-  route_table_id = aws_route_table.FAST-route-table.id
+  route_table_id = var.route_table_id
 }
 
 # SECURITY GROUP #

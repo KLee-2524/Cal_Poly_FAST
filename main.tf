@@ -27,4 +27,5 @@ module "vsftpd234-lab" {
 
     attendee_number = each.key
     vpc_id          = aws_vpc.FAST-vpc.id
+    route_table_id  = aws_route_table.FAST-route-table.id
 }

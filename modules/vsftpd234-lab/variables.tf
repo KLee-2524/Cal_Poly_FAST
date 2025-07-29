@@ -9,6 +9,11 @@ variable "vpc_id" {
     type        = string
 }
 
+variable "route_table_id" {
+    description = "ID of the route table"
+    type        = string
+}
+
 variable "instance_type" {
   description = "Type of EC2 instance to provision"
   default     = "t2.medium"
