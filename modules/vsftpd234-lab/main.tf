@@ -34,7 +34,7 @@ resource "aws_subnet" "FAST-subnet" {
 #}
 
 resource "aws_route_table_association" "FAST-subnet" {
-  subnet_id      = aws_subnet.FAST-subnet-${var.attendee_number}.id
+  subnet_id      = aws_subnet.FAST-subnet.id
   route_table_id = aws_route_table.FAST-route-table.id
 }
 
@@ -70,7 +70,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
-    cidr_blocks = [aws_subnet.FAST-subnet-${var.attendee_number}.cidr_block]
+    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
   }
 
   # vsftpd 2.3.4
@@ -78,7 +78,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = 21
     to_port     = 21
     protocol    = "tcp"
-    cidr_blocks = [aws_subnet.FAST-subnet-${var.attendee_number}.cidr_block]
+    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
   }
 
   # vsftpd 2.3.4 backdoor spawns on port 6200
@@ -86,7 +86,7 @@ resource "aws_security_group" "FAST-sg" {
     from_port   = 6200
     to_port     = 6200
     protocol    = "tcp"
-    cidr_blocks = [aws_subnet.FAST-subnet-${var.attendee_number}.cidr_block]
+    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
   }
 
   egress {
@@ -116,7 +116,7 @@ resource "aws_instance" "kali-vm" {
 resource "aws_instance" "vsftpd234-vm" {
   ami           = var.target_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet-${var.attendee_number}.id
+  subnet_id     = aws_subnet.FAST-subnet.id
 
   private_ip = "192.168.${var.attendee_number}.10"
   
