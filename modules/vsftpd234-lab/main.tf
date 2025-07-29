@@ -100,7 +100,7 @@ resource "aws_security_group" "FAST-sg" {
 resource "aws_instance" "kali-vm" {
   ami           = var.kali_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet-${var.attendee_number}.id
+  subnet_id     = aws_subnet.FAST-subnet.id
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
