@@ -4,6 +4,11 @@ variable "attendee_number" {
     default     = "24"
 }
 
+variable "vpc_id" {
+    description = "ID of the lab vpc"
+    type        = string
+}
+
 variable "instance_type" {
   description = "Type of EC2 instance to provision"
   default     = "t2.medium"

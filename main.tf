@@ -26,4 +26,5 @@ module "vsftpd234-lab" {
     for_each = toset([ for i in range(var.attendee_count) : "attendee-${i}"])
 
     attendee_number = each.key
+    vpc_id          = aws_vpc.FAST-vpc.id
 }
