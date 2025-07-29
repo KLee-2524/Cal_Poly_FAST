@@ -23,9 +23,9 @@ resource "aws_route_table" "FAST-route-table" {
 
 module "vsftpd234-lab" {
     source = "./modules/vsftpd234-lab"
-    for_each = toset([ for i in range(var.attendee_count) : "tostring(i)"])
+    for_each = toset([ for i in range(var.attendee_count) : "attendee-${i}"])
 
-    attendee_number = each.key
+    attendee_number = ${i}
     vpc_id          = aws_vpc.FAST-vpc.id
     route_table_id  = aws_route_table.FAST-route-table.id
 }

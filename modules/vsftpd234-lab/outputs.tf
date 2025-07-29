@@ -15,3 +15,9 @@ output "target_details" {
     }
     description = "Target EC2 instance details"
 }
+
+output "attendee_number" {
+    value = {
+        attendee_number = var.attendee_number
+    }
+}
