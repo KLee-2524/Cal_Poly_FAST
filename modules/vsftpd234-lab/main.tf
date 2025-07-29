@@ -13,7 +13,7 @@
 #}
 
 resource "aws_subnet" "FAST-subnet" {
-  vpc_id                  = aws_vpc.FAST-vpc.id
+  vpc_id                  = var.vpc_id
   cidr_block              = "192.168.${var.attendee_number}.0/28"
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
@@ -41,7 +41,7 @@ resource "aws_route_table_association" "FAST-subnet" {
 # SECURITY GROUP #
 resource "aws_security_group" "FAST-sg" {
   name   = "FAST-sg-${var.attendee_number}"
-  vpc_id = aws_vpc.FAST-vpc.id
+  vpc_id = var.vpc_id
 
   # SHH
   ingress {
