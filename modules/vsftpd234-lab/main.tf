@@ -1,46 +1,46 @@
 # NETWORKING #
-resource "aws_vpc" "FAST-vpc" {
-  cidr_block           = "192.168.0.0/16"
-  enable_dns_hostnames = true
+#resource "aws_vpc" "FAST-vpc" {
+#  cidr_block           = "192.168.0.0/16"
+#  enable_dns_hostnames = true
+#
+#  tags = {
+#    Name = "FAST-vpc"
+#  }
+#}
 
-  tags = {
-    Name = "FAST-vpc"
-  }
-}
+#resource "aws_internet_gateway" "FAST-gateway" {
+#  vpc_id = aws_vpc.FAST-vpc.id
+#}
 
-resource "aws_internet_gateway" "FAST-gateway" {
-  vpc_id = aws_vpc.FAST-vpc.id
-}
-
-resource "aws_subnet" "FAST-subnet" {
+resource "aws_subnet" "FAST-subnet-${var.attendee_number}" {
   vpc_id                  = aws_vpc.FAST-vpc.id
   cidr_block              = "192.168.${var.attendee_number}.0/28"
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "FAST-subnet"
+    Name = "FAST-subnet-${var.attendee_number}"
   }
 }
 
 # ROUTING #
-resource "aws_route_table" "FAST-route-table" {
-  vpc_id = aws_vpc.FAST-vpc.id
+#resource "aws_route_table" "FAST-route-table" {
+#  vpc_id = aws_vpc.FAST-vpc.id
+#
+#  route {
+#    cidr_block = "0.0.0.0/0"
+#    gateway_id = aws_internet_gateway.FAST-gateway.id
+#  }
+#}
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.FAST-gateway.id
-  }
-}
-
-resource "aws_route_table_association" "FAST-subnet" {
-  subnet_id      = aws_subnet.FAST-subnet.id
+resource "aws_route_table_association" "FAST-subnet-${var.attendee_number}" {
+  subnet_id      = aws_subnet.FAST-subnet-${var.attendee_number}.id
   route_table_id = aws_route_table.FAST-route-table.id
 }
 
 # SECURITY GROUP #
-resource "aws_security_group" "FAST-sg" {
-  name   = "FAST-sg"
+resource "aws_security_group" "FAST-sg-${var.attendee_number}" {
+  name   = "FAST-sg-${var.attendee_number}"
   vpc_id = aws_vpc.FAST-vpc.id
 
   # SHH
@@ -97,10 +97,10 @@ resource "aws_security_group" "FAST-sg" {
   }
 }
 
-resource "aws_instance" "kali-vm" {
+resource "aws_instance" "kali-vm-${var.attendee_number}" {
   ami           = var.kali_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet.id
+  subnet_id     = aws_subnet.FAST-subnet-${var.attendee_number}.id
   
   vpc_security_group_ids = [aws_security_group.FAST-sg.id]
 
@@ -113,10 +113,10 @@ resource "aws_instance" "kali-vm" {
   }
 }
 
-resource "aws_instance" "vsftpd234-vm" {
+resource "aws_instance" "vsftpd234-vm-${var.attendee_number}" {
   ami           = var.target_ami
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet.id
+  subnet_id     = aws_subnet.FAST-subnet-${var.attendee_number}.id
 
   private_ip = "192.168.${var.attendee_number}.10"
   
