@@ -1,13 +1,13 @@
 output "kali_name" {
     value = {
-        name       = aws_instance.kali-vm.tags["Name"]
+        name = aws_instance.kali-vm.tags["Name"]
     }
     description = "Kali Linux EC2 instance name"
 }
 
 output "kali_pub_ip" {
     value = {
-        public_ip  = aws_instance.kali-vm.public_ip
+        public_ip = aws_instance.kali-vm.public_ip
     }
     description = "Kali Linux EC2 instance public ip"
 }
@@ -21,14 +21,14 @@ output "kali_pri_ip" {
 
 output "target_name" {
     value = {
-        name       = aws_instance.vsftpd234-vm.tags["Name"]
+        name = aws_instance.vsftpd234-vm.tags["Name"]
     }
     description = "Target EC2 instance details"
 }
 
 output "target_pub_ip" {
     value = {
-        public_ip  = aws_instance.vsftpd234-vm.public_ip
+        public_ip = aws_instance.vsftpd234-vm.public_ip
     }
     description = "Target EC2 instance details"
 }
