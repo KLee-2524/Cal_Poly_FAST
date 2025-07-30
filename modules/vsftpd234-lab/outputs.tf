@@ -1,7 +1,7 @@
 output "kali_details" {
     value = {
         name        = aws_instance.kali-vm.tags["Name"]
-        kali_pub_ip = aws_instance.kali-vm.tags["Name"]
+        kali_pub_ip = aws_instance.kali-vm.public_ip
     }
     description = "Kali Linux EC2 instance details"
 }
