@@ -1,17 +1,4 @@
 # NETWORKING #
-#resource "aws_vpc" "FAST-vpc" {
-#  cidr_block           = "192.168.0.0/16"
-#  enable_dns_hostnames = true
-#
-#  tags = {
-#    Name = "FAST-vpc"
-#  }
-#}
-
-#resource "aws_internet_gateway" "FAST-gateway" {
-#  vpc_id = aws_vpc.FAST-vpc.id
-#}
-
 resource "aws_subnet" "FAST-subnet" {
   vpc_id                  = var.vpc_id
   cidr_block              = "192.168.${var.attendee_number}.0/28"
@@ -24,15 +11,6 @@ resource "aws_subnet" "FAST-subnet" {
 }
 
 # ROUTING #
-#resource "aws_route_table" "FAST-route-table" {
-#  vpc_id = aws_vpc.FAST-vpc.id
-#
-#  route {
-#    cidr_block = "0.0.0.0/0"
-#    gateway_id = aws_internet_gateway.FAST-gateway.id
-#  }
-#}
-
 resource "aws_route_table_association" "FAST-subnet" {
   subnet_id      = aws_subnet.FAST-subnet.id
   route_table_id = var.route_table_id
@@ -65,30 +43,6 @@ resource "aws_security_group" "FAST-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # ICMP IPv4 Either from 8 + to -1 or from -1 + to -1
-  ingress {
-    from_port   = -1
-    to_port     = -1
-    protocol    = "icmp"
-    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
-  }
-
-  # vsftpd 2.3.4
-  ingress {
-    from_port   = 21
-    to_port     = 21
-    protocol    = "tcp"
-    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
-  }
-
-  # vsftpd 2.3.4 backdoor spawns on port 6200
-  ingress {
-    from_port   = 6200
-    to_port     = 6200
-    protocol    = "tcp"
-    cidr_blocks = [aws_subnet.FAST-subnet.cidr_block]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -110,23 +64,5 @@ resource "aws_instance" "kali-vm" {
 
   tags = {
     Name = "KALI-VM-${var.attendee_number}"
-  }
-}
-
-resource "aws_instance" "vsftpd234-vm" {
-  ami           = var.target_ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.FAST-subnet.id
-
-  private_ip = "192.168.${var.attendee_number}.10"
-  
-  vpc_security_group_ids = [aws_security_group.FAST-sg.id]
-
-  user_data = var.target_setup_script
-
-  key_name = "terraform-key-pair"
-
-  tags = {
-    Name = "Target-VM-${var.attendee_number}"
   }
 }
